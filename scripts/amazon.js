@@ -84,11 +84,13 @@ document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
     const { productId } = button.dataset; //shortcut
 
     addToCart(productId);
+    //console.log(cart);
 
     let cartQuantity = 0;
     cart.forEach((item) => {
       cartQuantity += item.quantity;
     });
+
     //log(cartQuantity);
 
     //for added message display
