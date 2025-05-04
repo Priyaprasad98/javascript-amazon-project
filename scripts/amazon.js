@@ -105,7 +105,7 @@ document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
         //productId: productId,
         //quantity: quantity, //here changes to quantity bcz in dropdown menu there will be 1 selected as default. and changes id to productId so we can use shortcut ie,
         productId,
-        quantity,
+        quantity
       });
     }
     console.log(cart);
