@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let productHTML = ``;
@@ -83,52 +83,22 @@ document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
     //const productId = button.dataset.productId;
     const { productId } = button.dataset; //shortcut
 
-    const quantitySelectorElement = document.querySelector(
-      `.js-quantity-selector-${productId}`
-    );
-
-    //console.log(quantitySelectorElement);
-    let quantity = Number(quantitySelectorElement.value);
-    console.log(quantity);
-
-    let matchedItem;
-    cart.forEach((item) => {
-      if (productId === item.productId) {
-        //item.id
-        //item.id
-        matchedItem = item;
-      }
-    });
-    if (matchedItem) {
-      matchedItem.quantity += quantity;
-    } else {
-      cart.push({
-        //id: productId,
-        //quantity: 1,
-        //productId: productId,
-        //quantity: quantity, //here changes to quantity bcz in dropdown menu there will be 1 selected as default. and changes id to productId so we can use shortcut ie,
-        productId,
-        quantity
-      });
-    }
-    console.log(cart);
+    addToCart(productId);
 
     let cartQuantity = 0;
     cart.forEach((item) => {
       cartQuantity += item.quantity;
     });
-    //.log(cartQuantity);
+    //log(cartQuantity);
 
+    //for added message display
     document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 
     const addedToCartMessage = document.querySelector(
       `.js-added-to-cart-${productId}`
     );
-
     addedToCartMessage.classList.add("js-after-click-add-to-cart");
-
     clearTimeout(timeOutId);
-
     timeOutId = setTimeout(() => {
       addedToCartMessage.classList.remove("js-after-click-add-to-cart");
     }, 2000);
