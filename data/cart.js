@@ -21,9 +21,7 @@ function saveCartStorage() {
 }
 
 export function addToCart(productId) {
-  const quantitySelectorElement = document.querySelector(
-    `.js-quantity-selector-${productId}`
-  );
+  const quantitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`);
 
   //console.log(quantitySelectorElement);
   let quantity = Number(quantitySelectorElement.value);

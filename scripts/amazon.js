@@ -24,14 +24,10 @@ products.forEach((product) => {
               class="product-rating-stars"
               src="images/ratings/rating-${product.rating.stars * 10}.png"
             />
-            <div class="product-rating-count link-primary">${
-              product.rating.count
-            }</div>
+            <div class="product-rating-count link-primary">${product.rating.count}</div>
           </div>
 
-          <div class="product-price">$${formatCurrency(
-            product.priceCents
-          )}</div>
+          <div class="product-price">$${formatCurrency(product.priceCents)}</div>
 
           <div class="product-quantity-container">
             <select class="js-quantity-selector-${product.id}">
@@ -63,8 +59,7 @@ products.forEach((product) => {
 });
 document.querySelector(".js-product-grid").innerHTML = productHTML;
 
-document.querySelector(".js-cart-quantity").innerHTML =
-  updateCartQuantity(cart);
+document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
 /* document.querySelectorAll(".js-add-to-cart-button") selects all the elements on the page that have the class js-add-to-cart-button (which, in this case, are the "Add to Cart" buttons).
 
 .forEach() goes through each button, one at a time. It loops over all the buttons only once when the page loads.
@@ -89,13 +84,10 @@ document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
 
     addToCart(productId);
 
-    document.querySelector(".js-cart-quantity").innerHTML =
-      updateCartQuantity(cart);
+    document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
 
     //for added message display
-    const addedToCartMessage = document.querySelector(
-      `.js-added-to-cart-${productId}`
-    );
+    const addedToCartMessage = document.querySelector(`.js-added-to-cart-${productId}`);
     addedToCartMessage.classList.add("js-after-click-add-to-cart");
     clearTimeout(timeOutId);
     timeOutId = setTimeout(() => {

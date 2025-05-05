@@ -26,13 +26,9 @@ cart.forEach((cartItem) => {
                 <div class="product-name">
                   ${matchingProduct.name}
                 </div>
-                <div class="product-price">$${(
-                  matchingProduct.priceCents / 100
-                ).toFixed(2)}</div>
+                <div class="product-price">$${(matchingProduct.priceCents / 100).toFixed(2)}</div>
                 <div class="product-quantity">
-                  <span> Quantity: <span class="quantity-label">${
-                    cartItem.quantity
-                  }</span> </span>
+                  <span> Quantity: <span class="quantity-label">${cartItem.quantity}</span> </span>
                   <span class="js-update-quantity-link link-primary" >
                     Update
                   </span>
@@ -99,7 +95,5 @@ document.querySelectorAll(".js-delete-quantity-link").forEach((deleteLink) => {
 
 //checkout heading
 function updateCheckoutHeading() {
-  document.querySelector(
-    ".js-return-to-home-link"
-  ).innerHTML = `${updateCartQuantity(cart)} items`;
+  document.querySelector(".js-return-to-home-link").innerHTML = `${updateCartQuantity(cart)} items`;
 }
