@@ -61,5 +61,4 @@ export function removeFromCart(productId) {
   });
   cart = newCart;
   saveCartStorage();
-  console.log(cart);
 }

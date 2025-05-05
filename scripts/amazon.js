@@ -1,10 +1,12 @@
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { updateCartQuantity } from "./utils/cartquantity.js";
+import { formatCurrency } from "./utils/money.js";
 
 let productHTML = ``;
 let timeOutId; //for storing previous timeout before click
 products.forEach((product) => {
-  const html = `
+  productHTML += `
   <div class="product-container">
           <div class="product-image-container">
             <img
@@ -27,8 +29,8 @@ products.forEach((product) => {
             }</div>
           </div>
 
-          <div class="product-price">$${(product.priceCents / 100).toFixed(
-            2
+          <div class="product-price">$${formatCurrency(
+            product.priceCents
           )}</div>
 
           <div class="product-quantity-container">
@@ -58,9 +60,11 @@ products.forEach((product) => {
           }">Add to Cart</button>
         </div>
   `;
-  productHTML += html; //doubt
 });
 document.querySelector(".js-product-grid").innerHTML = productHTML;
+
+document.querySelector(".js-cart-quantity").innerHTML =
+  updateCartQuantity(cart);
 /* document.querySelectorAll(".js-add-to-cart-button") selects all the elements on the page that have the class js-add-to-cart-button (which, in this case, are the "Add to Cart" buttons).
 
 .forEach() goes through each button, one at a time. It loops over all the buttons only once when the page loads.
@@ -84,18 +88,11 @@ document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
     const { productId } = button.dataset; //shortcut
 
     addToCart(productId);
-    //console.log(cart);
 
-    let cartQuantity = 0;
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-
-    //log(cartQuantity);
+    document.querySelector(".js-cart-quantity").innerHTML =
+      updateCartQuantity(cart);
 
     //for added message display
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-
     const addedToCartMessage = document.querySelector(
       `.js-added-to-cart-${productId}`
     );

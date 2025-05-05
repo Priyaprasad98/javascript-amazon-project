@@ -1,5 +1,6 @@
 import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { updateCartQuantity } from "./utils/cartquantity.js";
 let cartItemHTML = "";
 cart.forEach((cartItem) => {
   let productId = cartItem.productId;
@@ -11,10 +12,10 @@ cart.forEach((cartItem) => {
       matchingProduct = product;
     }
   });
-  //console.log(matchingProduct);
   cartItemHTML += `
        <div class="cart-item-container-${productId}">
-          <div class="delivery-date">Delivery date: Tuesday, June 21</div>
+          <div class="delivery-date">Delivery date: Tuesday, June  
+          21</div>
 
             <div class="cart-item-details-grid">
               <img
@@ -81,9 +82,10 @@ cart.forEach((cartItem) => {
           </div>
   `;
 });
-//console.log(cartItemHTML);
 
 document.querySelector(".js-cart-item-container").innerHTML = cartItemHTML;
+
+updateCheckoutHeading();
 
 //for delete feature
 document.querySelectorAll(".js-delete-quantity-link").forEach((deleteLink) => {
@@ -91,5 +93,13 @@ document.querySelectorAll(".js-delete-quantity-link").forEach((deleteLink) => {
     const productId = deleteLink.dataset.productId;
     removeFromCart(productId);
     document.querySelector(`.cart-item-container-${productId}`).remove();
+    updateCheckoutHeading();
   });
 });
+
+//checkout heading
+function updateCheckoutHeading() {
+  document.querySelector(
+    ".js-return-to-home-link"
+  ).innerHTML = `${updateCartQuantity(cart)} items`;
+}
