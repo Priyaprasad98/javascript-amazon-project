@@ -1,7 +1,6 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { updateCartQuantity } from "./utils/cartquantity.js";
-import { formatCurrency } from "./utils/money.js";
+import { formatCurrency } from "../data/utils/money.js";
 
 let productHTML = ``;
 let timeOutId; //for storing previous timeout before click
@@ -59,7 +58,12 @@ products.forEach((product) => {
 });
 document.querySelector(".js-product-grid").innerHTML = productHTML;
 
-document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
+if (updateCartQuantity(cart) === 0) {
+  document.querySelector(".js-cart-quantity").innerHTML = "";
+} else {
+  document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
+}
+
 /* document.querySelectorAll(".js-add-to-cart-button") selects all the elements on the page that have the class js-add-to-cart-button (which, in this case, are the "Add to Cart" buttons).
 
 .forEach() goes through each button, one at a time. It loops over all the buttons only once when the page loads.

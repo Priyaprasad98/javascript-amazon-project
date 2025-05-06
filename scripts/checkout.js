@@ -1,6 +1,6 @@
 import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { updateCartQuantity } from "./utils/cartquantity.js";
+import { updateCartQuantity } from "../data/cart.js";
 let cartItemHTML = "";
 cart.forEach((cartItem) => {
   let productId = cartItem.productId;
