@@ -6,7 +6,7 @@ import {
   updateDeliveryOption
 } from "../../data/cart.js";
 import { products } from "../../data/products.js";
-import { formatCurrency } from "../utils/money.js";
+import formatCurrency from "../utils/money.js";
 import { deliveryOption } from "../../data/delivery.js";
 import dayjs from "https://esm.sh/dayjs";
 export function renderOrderSummery() {
