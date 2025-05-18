@@ -7,8 +7,8 @@ import {
 } from "../../data/cart.js";
 import { products } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
-import { deliveryOption } from "../../data/delivery.js";
-import dayjs from "https://esm.sh/dayjs";
+import { deliveryOption, calculateDeliveryDate } from "../../data/delivery.js";
+//import dayjs from "https://esm.sh/dayjs";
 export function renderOrderSummery() {
   let cartItemHTML = "";
   cart.forEach((cartItem) => {
@@ -24,14 +24,16 @@ export function renderOrderSummery() {
     let dateString;
     deliveryOption.forEach((option) => {
       if (option.id === cartItem.deliveryId) {
-        const deliveryDate = dayjs().add(option.deliveryDays, "day");
-        dateString = deliveryDate.format("dddd, MMMM D");
+        dateString = calculateDeliveryDate(option);
+        //     const deliveryDate = dayjs().add(option.deliveryDays, "day");
+        //     dateString = deliveryDate.format("dddd, MMMM D");
       }
     });
 
     cartItemHTML += `
        <div class="cart-item-container-${productId}">
-          <div class="delivery-date js-delivery-date">Delivery date: ${dateString}</div>
+          <div class="delivery-date js-delivery-date">Delivery date: ${dateString}
+          </div>
 
             <div class="cart-item-details-grid">
               <img
@@ -72,10 +74,10 @@ export function renderOrderSummery() {
   function displayDeliveryOption(matchingProduct, cartItem) {
     let html = ``;
 
-    const today = dayjs();
+    //const today = dayjs();
     deliveryOption.forEach((option) => {
-      const deliveryDate = today.add(option.deliveryDays, "day");
-      const dateString = deliveryDate.format("dddd, MMMM D");
+      // const deliveryDate = today.add(option.deliveryDays, "day");
+      // const dateString = deliveryDate.format("dddd, MMMM D");
 
       const priceString =
         option.deliveryPriceCents === 0 ? "FREE" : `-$${formatCurrency(option.deliveryPriceCents)}`;
@@ -91,7 +93,7 @@ export function renderOrderSummery() {
               class="delivery-option-input"
                 name="delivery-option-${matchingProduct.id}" />
                 <div>
-                  <div class="delivery-option-date">${dateString}</div>
+                  <div class="delivery-option-date">${calculateDeliveryDate(option)}</div>
                   <div class="delivery-option-price">${priceString} Shipping</div>
                 </div>
         </div>
@@ -160,7 +162,7 @@ export function renderOrderSummery() {
       const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
       quantityLabel.innerHTML = newQuantity;
       updateCheckoutHeading();
-      console.log(cart);
+      //console.log(cart);
     }
 
     document

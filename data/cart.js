@@ -1,3 +1,4 @@
+import { renderPaymentSummery } from "../scripts/checkout/paymentSummery.js";
 export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 function saveCartStorage() {
@@ -42,6 +43,7 @@ export function removeFromCart(productId) {
   });
   cart = newCart;
   saveCartStorage();
+  renderPaymentSummery();
 }
 
 export function updateCartQuantity(cart) {
@@ -59,14 +61,17 @@ export function updateNewQuantity(productId, newQuantity) {
       cartItem.quantity = newQuantity;
     }
     saveCartStorage();
+    renderPaymentSummery();
   });
 }
 
 export function updateDeliveryOption(productId, deliveryOptionId) {
+  // Match the cart item with the selected product ID
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
       cartItem.deliveryId = deliveryOptionId;
     }
   });
   saveCartStorage();
+  renderPaymentSummery();
 }
