@@ -1,5 +1,5 @@
 import dayjs from "https://esm.sh/dayjs";
-console.log("hello");
+
 export const deliveryOption = [
   {
     id: "1",

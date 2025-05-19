@@ -1,11 +1,14 @@
 import { cart, addToCart, updateCartQuantity } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { products, loadProductsFetch } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
+(async () => {
+  //IIFE (immediately invoked function expression, doesnot need to be called)
+  await loadProductsFetch();
 
-let productHTML = ``;
-let timeOutId; //for storing previous timeout before click
-products.forEach((product) => {
-  productHTML += `
+  let productHTML = ``;
+  let timeOutId; //for storing previous timeout before click
+  products.forEach((product) => {
+    productHTML += `
   <div class="product-container">
           <div class="product-image-container">
             <img
@@ -49,22 +52,23 @@ products.forEach((product) => {
             <img src="images/icons/checkmark.png" />
             Added
           </div>
-
+          <div style = "margin: 15px;">${product.extraInfoHTML()}</div>
+          
           <button class="add-to-cart-button button-primary js-add-to-cart-button" data-product-id="${
             product.id
           }">Add to Cart</button>
         </div>
   `;
-});
-document.querySelector(".js-product-grid").innerHTML = productHTML;
+  });
+  document.querySelector(".js-product-grid").innerHTML = productHTML;
 
-if (updateCartQuantity(cart) === 0) {
-  document.querySelector(".js-cart-quantity").innerHTML = "";
-} else {
-  document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
-}
+  if (updateCartQuantity(cart) === 0) {
+    document.querySelector(".js-cart-quantity").innerHTML = "";
+  } else {
+    document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
+  }
 
-/* document.querySelectorAll(".js-add-to-cart-button") selects all the elements on the page that have the class js-add-to-cart-button (which, in this case, are the "Add to Cart" buttons).
+  /* document.querySelectorAll(".js-add-to-cart-button") selects all the elements on the page that have the class js-add-to-cart-button (which, in this case, are the "Add to Cart" buttons).
 
 .forEach() goes through each button, one at a time. It loops over all the buttons only once when the page loads.
 
@@ -81,21 +85,22 @@ What does this mean for clicks?
 After the page loads and the event listeners are set up, clicking any button will not cause .forEach() to loop over all the buttons again.
 
 The click will only trigger the code inside the event listener that was attached to the button that was clicked.*/
-document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    //const productId = button.dataset.productId;
-    const { productId } = button.dataset; //shortcut
+  document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      //const productId = button.dataset.productId;
+      const { productId } = button.dataset; //shortcut
 
-    addToCart(productId);
+      addToCart(productId);
 
-    document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
+      document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
 
-    //for added message display
-    const addedToCartMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-    addedToCartMessage.classList.add("js-after-click-add-to-cart");
-    clearTimeout(timeOutId);
-    timeOutId = setTimeout(() => {
-      addedToCartMessage.classList.remove("js-after-click-add-to-cart");
-    }, 2000);
+      //for added message display
+      const addedToCartMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+      addedToCartMessage.classList.add("js-after-click-add-to-cart");
+      clearTimeout(timeOutId);
+      timeOutId = setTimeout(() => {
+        addedToCartMessage.classList.remove("js-after-click-add-to-cart");
+      }, 2000);
+    });
   });
-});
+})();

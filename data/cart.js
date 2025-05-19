@@ -1,6 +1,12 @@
 import { renderPaymentSummery } from "../scripts/checkout/paymentSummery.js";
-export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+export let cart;
+
+loadFromStorage();
+
+export function loadFromStorage() {
+  cart = JSON.parse(localStorage.getItem("cart")) || [];
+}
 function saveCartStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
@@ -74,4 +80,22 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   });
   saveCartStorage();
   renderPaymentSummery();
+}
+
+// export function loadCart(fun) {
+//   const xhr = new XMLHttpRequest();
+//   xhr.addEventListener("load", () => {
+//     console.log(xhr.response);
+//     fun();
+//   });
+
+//   xhr.open("GET", "https://supersimplebackend.dev/cart");
+//   xhr.send();
+// }
+
+export async function loadCartFetch() {
+  const response = await fetch("https://supersimplebackend.dev/cart");
+  const text = await response.text();
+
+  return text; //text=load Cart from backend
 }
