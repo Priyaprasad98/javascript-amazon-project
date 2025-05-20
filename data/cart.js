@@ -13,8 +13,8 @@ function saveCartStorage() {
 //console.log(cart);
 export function addToCart(productId) {
   const quantitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`);
-
-  let quantity = Number(quantitySelectorElement.value);
+  // console.log(quantitySelectorElement); //gives null for oders.js page's buy again button
+  let quantity = quantitySelectorElement ? Number(quantitySelectorElement.value) : 1;
 
   let matchedItem;
   cart.forEach((cartItem) => {
@@ -38,6 +38,7 @@ export function addToCart(productId) {
     });
   }
   saveCartStorage();
+  console.log(cart);
 }
 
 export function removeFromCart(productId) {
