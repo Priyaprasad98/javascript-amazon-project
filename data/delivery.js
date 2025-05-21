@@ -17,12 +17,12 @@ export const deliveryOption = [
     deliveryDays: 3
   }
 ];
+
 const today = dayjs();
 export function calculateDeliveryDate(deliveryOption) {
   const newDeliveryDays = skipWeekend(deliveryOption.deliveryDays);
   const deliveryDate = today.add(newDeliveryDays, "days");
   const dateString = deliveryDate.format("dddd, MMMM D");
-
   return dateString;
 }
 

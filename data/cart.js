@@ -7,10 +7,11 @@ loadFromStorage();
 export function loadFromStorage() {
   cart = JSON.parse(localStorage.getItem("cart")) || [];
 }
+
 function saveCartStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
-//console.log(cart);
+
 export function addToCart(productId) {
   const quantitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`);
   // console.log(quantitySelectorElement); //gives null for oders.js page's buy again button
@@ -19,8 +20,6 @@ export function addToCart(productId) {
   let matchedItem;
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
-      //item.id
-      //item.id
       matchedItem = cartItem;
     }
   });
@@ -38,7 +37,6 @@ export function addToCart(productId) {
     });
   }
   saveCartStorage();
-  console.log(cart);
 }
 
 export function removeFromCart(productId) {
@@ -58,7 +56,6 @@ export function updateCartQuantity(cart) {
   cart.forEach((item) => {
     cartQuantity += item.quantity;
   });
-
   return cartQuantity;
 }
 
@@ -97,7 +94,6 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 export async function loadCartFetch() {
   const response = await fetch("https://supersimplebackend.dev/cart");
   const text = await response.text();
-
   return text; //text=load Cart from backend
 }
 

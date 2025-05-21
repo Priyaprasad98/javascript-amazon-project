@@ -8,12 +8,11 @@ import {
 import { products } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
 import { deliveryOption, calculateDeliveryDate } from "../../data/delivery.js";
-//import dayjs from "https://esm.sh/dayjs";
+
 export function renderOrderSummery() {
   let cartItemHTML = "";
   cart.forEach((cartItem) => {
     let productId = cartItem.productId;
-
     let matchingProduct;
 
     products.forEach((product) => {
@@ -21,6 +20,7 @@ export function renderOrderSummery() {
         matchingProduct = product;
       }
     });
+
     let dateString;
     deliveryOption.forEach((option) => {
       if (option.id === cartItem.deliveryId) {
@@ -63,30 +63,24 @@ export function renderOrderSummery() {
                   Choose a delivery option:
                 </div>
                  ${displayDeliveryOption(matchingProduct, cartItem)}
-
-
               </div>
             </div>
-          </div>
-  `;
+          </div>`;
   });
 
   function displayDeliveryOption(matchingProduct, cartItem) {
     let html = ``;
 
-    //const today = dayjs();
     deliveryOption.forEach((option) => {
-      // const deliveryDate = today.add(option.deliveryDays, "day");
-      // const dateString = deliveryDate.format("dddd, MMMM D");
-
       const priceString =
         option.deliveryPriceCents === 0 ? "FREE" : `-$${formatCurrency(option.deliveryPriceCents)}`;
 
       const isChecked = option.id === cartItem.deliveryId ? "checked" : "";
 
       html += `
-      <div class="delivery-option js-delivery-option" data-delivery-id="${option.id}"
-      data-product-id="${matchingProduct.id}">
+       <div class="delivery-option js-delivery-option" data-delivery-id="${
+         option.id
+       }"data-product-id="${matchingProduct.id}">
         <input
          type="radio"
             ${isChecked}
@@ -164,7 +158,6 @@ export function renderOrderSummery() {
       updateCheckoutHeading();
       //console.log(cart);
     }
-
     document
       .querySelector(`.cart-item-container-${productId}`)
       .classList.remove("is-editing-quantity");

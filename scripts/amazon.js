@@ -78,23 +78,6 @@ import formatCurrency from "./utils/money.js";
     document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
   }
 
-  /* document.querySelectorAll(".js-add-to-cart-button") selects all the elements on the page that have the class js-add-to-cart-button (which, in this case, are the "Add to Cart" buttons).
-
-.forEach() goes through each button, one at a time. It loops over all the buttons only once when the page loads.
-
-Example:
-If you have 5 buttons on the page, .forEach() will loop 5 times:
-
-On the first loop: It attaches an event listener to the first button.
-
-On the second loop: It attaches an event listener to the second button, and so on.
-
-The event listener is attached to each button once when the page is first loaded.
-
-What does this mean for clicks?
-After the page loads and the event listeners are set up, clicking any button will not cause .forEach() to loop over all the buttons again.
-
-The click will only trigger the code inside the event listener that was attached to the button that was clicked.*/
   document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
     button.addEventListener("click", () => {
       //const productId = button.dataset.productId;

@@ -19,6 +19,7 @@ class Product {
     return ``;
   }
 }
+
 class Clothing extends Product {
   sizeChartLink;
 
@@ -49,7 +50,9 @@ class Appliance extends Product {
     `;
   }
 }
+
 export let products = [];
+
 export async function loadProductsFetch() {
   let response = await fetch("https://supersimplebackend.dev/products");
   let productsData = await response.json();
