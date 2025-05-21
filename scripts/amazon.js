@@ -3,7 +3,7 @@ import { products, loadProductsFetch } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 (async () => {
   //IIFE (immediately invoked function expression, doesnot need to be called)
-  await loadProductsFetch();
+  await loadProductsFetch(); //await can be used without async function when the given file ia a module
   let productHTML = ``;
   let timeOutId; //for storing previous timeout before click
 

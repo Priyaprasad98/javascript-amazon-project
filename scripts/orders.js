@@ -2,7 +2,7 @@ import { orders } from "../data/orders.js";
 import dayjs from "https://esm.sh/dayjs";
 import { formatCurrency } from "./utils/money.js";
 import { products, loadProductsFetch } from "../data/products.js";
-import { addToCart, resetCart } from "../data/cart.js";
+import { addToCart, updateCartQuantity, cart } from "../data/cart.js";
 await loadProductsFetch();
 let ordersHTML = "";
 orders.forEach((order) => {
@@ -35,6 +35,9 @@ orders.forEach((order) => {
     `;
   document.querySelector(".js-order-grid").innerHTML = ordersHTML;
 });
+
+document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
+
 function productsListHTML(order) {
   let productsListHTML = "";
   let matchingProduct;
@@ -86,5 +89,7 @@ document.querySelectorAll(".js-buy-again-button").forEach((button) => {
         <img class="buy-again-icon" src="images/icons/buy-again.png" />
         <span class="buy-again-message">Buy it again</span>`;
     }, 1000);
+
+    document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity(cart);
   });
 });
