@@ -1,4 +1,4 @@
-import { cart, updateCartQuantity } from "../../data/cart.js";
+import { cart, resetCart, updateCartQuantity } from "../../data/cart.js";
 import { deliveryOption } from "../../data/delivery.js";
 import { products } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
@@ -71,9 +71,10 @@ export function renderPaymentSummery() {
       });
       const order = await response.json();
       addOrder(order);
-      window.location.href = "orders.html";
     } catch (error) {
       console.log("unexpected error. Try again later.");
     }
+    resetCart();
+    window.location.href = "orders.html";
   });
 }

@@ -2,7 +2,7 @@ import { orders } from "../data/orders.js";
 import dayjs from "https://esm.sh/dayjs";
 import { formatCurrency } from "./utils/money.js";
 import { products, loadProductsFetch } from "../data/products.js";
-import { addToCart } from "../data/cart.js";
+import { addToCart, resetCart } from "../data/cart.js";
 await loadProductsFetch();
 let ordersHTML = "";
 orders.forEach((order) => {

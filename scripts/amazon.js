@@ -4,10 +4,20 @@ import formatCurrency from "./utils/money.js";
 (async () => {
   //IIFE (immediately invoked function expression, doesnot need to be called)
   await loadProductsFetch();
-
   let productHTML = ``;
   let timeOutId; //for storing previous timeout before click
-  products.forEach((product) => {
+
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get("search");
+  let filteredProducts = products;
+
+  if (search) {
+    filteredProducts = products.filter((product) => {
+      return product.name.toLowerCase().includes(search) || product.keywords.includes(search);
+    });
+  }
+
+  filteredProducts.forEach((product) => {
     productHTML += `
   <div class="product-container">
           <div class="product-image-container">
@@ -102,5 +112,17 @@ The click will only trigger the code inside the event listener that was attached
         addedToCartMessage.classList.remove("js-after-click-add-to-cart");
       }, 2000);
     });
+  });
+
+  document.querySelector(".js-search-button").addEventListener("click", () => {
+    const search = document.querySelector(".js-search-bar").value;
+    window.location.href = `amazon.html?search=${search}`;
+  });
+
+  document.querySelector(".js-search-bar").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      const search = document.querySelector(".js-search-bar").value;
+      window.location.href = `amazon.html?search=${search}`;
+    }
   });
 })();

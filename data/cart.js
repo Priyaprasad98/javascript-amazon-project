@@ -100,3 +100,8 @@ export async function loadCartFetch() {
 
   return text; //text=load Cart from backend
 }
+
+export function resetCart() {
+  cart = [];
+  saveCartStorage();
+}
