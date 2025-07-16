@@ -12,6 +12,7 @@ A frontend project simulating an Amazon-style checkout and basic order managemen
 - Local Storage (for persistence)
 - Modular JavaScript structure
 - Real-world e-commerce functionality concepts
+- Fetch API (for learning API calls and handling asynchronous data)
 
 ---
 
